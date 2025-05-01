@@ -117,12 +117,12 @@ namespace ClimatesCalories
             Tent.transform.SetPositionAndRotation(TentPosition, TentRotation);
             if (GameManager.Instance.PlayerEnterExit.IsPlayerInsideDungeon)
             {
-                FirePosition = Tent.transform.position + (Tent.transform.up * 0.9f);
+                FirePosition = Tent.transform.position + (Tent.transform.up * 0.9f) - new Vector3(0, 0.558f, 0); // carademono: Subtracted 0.558 offset to line up with vanilla tent
                 Tent.SetActive(false);
             }
             else
             {
-                FirePosition = Tent.transform.position + (Tent.transform.forward * 3) + (Tent.transform.up * 0.8f);
+                FirePosition = Tent.transform.position + (Tent.transform.forward * 3) + (Tent.transform.up * 0.8f) - new Vector3(0, 0.558f, 0);
                 Tent.SetActive(true);
             }
 
@@ -337,7 +337,7 @@ namespace ClimatesCalories
         private static void SetTentPositionAndRotation()
         {
             GameObject player = GameManager.Instance.PlayerObject;
-            TentPosition = player.transform.position + (player.transform.forward * 2);
+            TentPosition = player.transform.position + (player.transform.forward * 2) + new Vector3(0, 0.558f, 0); // carademono: Added 0.558 offset to line up with vanilla tent
             TentMatrix = player.transform.localToWorldMatrix;
 
             RaycastHit hit;
@@ -345,7 +345,7 @@ namespace ClimatesCalories
             if (Physics.Raycast(ray, out hit, 10))
             {
                 Debug.Log("Setting tent position and rotation");
-                TentPosition = hit.point + (Vector3.down * 0.2f);
+                TentPosition = hit.point + (Vector3.down * 0.2f) + new Vector3(0, 0.558f, 0);
                 TentRotation = Quaternion.FromToRotation(Vector3.up, hit.normal);
             }
             else
@@ -362,7 +362,7 @@ namespace ClimatesCalories
                 Ray rayDown = new Ray(TentPosition, Vector3.down);
                 if (Physics.Raycast(rayDown, out hit, 1000))
                 {
-                    TentPosition = hit.point + (Vector3.down * 0.2f);
+                    TentPosition = hit.point + (Vector3.down * 0.2f) + new Vector3(0, 0.558f, 0);
                 }
                 else
                 {
@@ -372,7 +372,7 @@ namespace ClimatesCalories
                     Ray rayFromPlayer = new Ray(newTentPos + Vector3.up, Vector3.down);
                     if (Physics.Raycast(rayFromPlayer, out hit, 1000))
                     {
-                        TentPosition = hit.point + (Vector3.down * 0.2f);
+                        TentPosition = hit.point + (Vector3.down * 0.2f) + new Vector3(0, 0.558f, 0);
                         //FirePosition = Tent.transform.position + (Tent.transform.forward * 3) + (Tent.transform.up * 0.6f);
                     }
                     else
@@ -380,7 +380,7 @@ namespace ClimatesCalories
                         Ray rayUp = new Ray(newTentPos + (Vector3.up * 500f), Vector3.down);
                         if (Physics.Raycast(rayUp, out hit, 1000))
                         {
-                            TentPosition = hit.point + (Vector3.down * 0.2f);
+                            TentPosition = hit.point + (Vector3.down * 0.2f) + new Vector3(0, 0.558f, 0);
                             //FirePosition = Tent.transform.position + (Tent.transform.forward * 3) + (Tent.transform.up * 0.6f);
                         }
                     }
